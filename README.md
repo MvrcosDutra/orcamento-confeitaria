@@ -76,14 +76,12 @@ docs/
 
 ## Equipe
 
-| Integrante | Papel na Sprint 0 |
-|---|---|
-| [Nome 1] | Product Owner |
-| [Nome 2] | Scrum Master |
-| [Nome 3] | Desenvolvedor(a) |
-| [Nome 4] | Desenvolvedor(a) |
-| [Nome 5] | Desenvolvedor(a) / Testes |
-| [Nome 6] | Desenvolvedor(a) / Documentação |
+| Integrante | GitHub | Papel na Sprint 0 |
+|---|---|---|
+| Marcos Dutra | [@MvrcosDutra](https://github.com/MvrcosDutra) | Scrum Master / Desenvolvedor |
+| Lavínia Oliveira | [@laviniaoliveira4](https://github.com/laviniaoliveira4) | Product Owner |
+| Isabella Castro | [@IsaGarcia02](https://github.com/IsaGarcia02) | Desenvolvedora / Testes |
+| Frederico Truocchio | [@fredericotru](https://github.com/fredericotru) | Desenvolvedor / Documentação |
 
 ## Gestão do projeto
 

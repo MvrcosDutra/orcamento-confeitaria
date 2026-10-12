@@ -7,15 +7,15 @@ arquitetura mínima e entregar a primeira funcionalidade (cadastrar e listar pro
 
 | Item | Responsável | Status |
 |---|---|---|
-| Repositório no GitHub, colaboradora `rafapcmor`, quadro Kanban | [Nome 2] | |
-| Visão do produto e README | [Nome 1] | |
-| Requisitos e regras de negócio (`docs/requisitos/`) | [Nome 1] | |
-| Backlog cadastrado como issues no quadro | [Nome 1] | |
-| Arquitetura em 4 camadas e projeto Maven | [Nome 3] | |
-| US01 — Cadastrar produto | [Nome 4] | |
-| US02 — Listar produtos | [Nome 4] | |
-| Testes unitários e primeiro cenário BDD | [Nome 5] | |
-| Revisão da documentação | [Nome 6] | |
+| Repositório no GitHub, colaboradora `rafapcmor`, quadro Kanban | Marcos Dutra | Concluído |
+| Visão do produto e README | Lavínia Oliveira | Concluído |
+| Requisitos e regras de negócio (`docs/requisitos/`) | Lavínia Oliveira | Concluído |
+| Backlog cadastrado como issues no quadro | Lavínia Oliveira | Concluído |
+| Arquitetura em 4 camadas e projeto Maven | Marcos Dutra | Concluído |
+| US01 — Cadastrar produto | Marcos Dutra | Concluído |
+| US02 — Listar produtos | Frederico Truocchio | Concluído |
+| Testes unitários e primeiro cenário BDD | Isabella Castro | Concluído |
+| Revisão da documentação e arquitetura | Frederico Truocchio | Concluído |
 
 ## Definição de pronto (DoD)
 
