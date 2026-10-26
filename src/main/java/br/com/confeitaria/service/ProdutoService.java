@@ -33,7 +33,10 @@ public class ProdutoService {
         }
         return repository.salvar(new Produto(nomeLimpo, categoria, preco));
     }
-
+    public Produto buscarPorId(Long id) {
+    return repository.buscarPorId(id)
+            .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
+}
     /** US02 — lista os produtos em ordem alfabética. */
     public List<Produto> listar() {
         return repository.listarTodos().stream()
