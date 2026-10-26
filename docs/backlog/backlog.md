@@ -10,8 +10,8 @@ e um cartão no quadro do projeto. A ordem da tabela é a ordem de prioridade.
 | US03 | Criar orçamento com itens | RF06, RN03 | Must | 1 |
 | US04 | Calcular valor do orçamento | RF07, RN01, RN02 | Must | 1 |
 | US05 | Listar orçamentos | RF08 | Must | 1 |
-| US06 | Editar produto | RF03, RN00 | Should | 1 |
-| US07 | Excluir produto | RF04 | Should | 1 |
+| US06 | Editar produto | RF03, RN00 | Should | 2 |
+| US07 | Excluir produto | RF04 | Should | 2 |
 | US08 | Atualizar status do orçamento | RF09, RN04, RN05 | Must | 2 |
 | US09 | Buscar produto | RF05 | Should | 2 |
 | US10 | Autenticar atendente | RF10, RNF07 | Should | 2 |

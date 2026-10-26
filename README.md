@@ -23,7 +23,7 @@ preços e regras em um só lugar e produz orçamentos rápidos, padronizados e r
 | Criar orçamento com itens | 1 | Planejada |
 | Calcular valor do orçamento (regras de negócio) | 1 | Planejada |
 | Listar orçamentos | 1 | Planejada |
-| Editar / excluir produto | 1 | Planejada |
+| Editar / excluir produto | 2 | Planejada |
 | Atualizar status do orçamento | 2 | Planejada |
 | Buscar produto por nome/categoria | 2 | Planejada |
 | Autenticar atendente | 2 | Planejada |
@@ -76,12 +76,12 @@ docs/
 
 ## Equipe
 
-| Integrante | GitHub | Papel na Sprint 0 |
+| Integrante | GitHub | Papel |
 |---|---|---|
-| Marcos Dutra | [@MvrcosDutra](https://github.com/MvrcosDutra) | Scrum Master / Desenvolvedor |
-| Lavínia Oliveira | [@laviniaoliveira4](https://github.com/laviniaoliveira4) | Product Owner |
-| Isabella Castro | [@IsaGarcia02](https://github.com/IsaGarcia02) | Desenvolvedora / Testes |
-| Frederico Truocchio | [@fredericotru](https://github.com/fredericotru) | Desenvolvedor / Documentação |
+| Marcos Gabriel Dutra | [@MvrcosDutra](https://github.com/MvrcosDutra) | Scrum Master / Desenvolvedor |
+| Lavínia Oliveira Silva | [@laviniaoliveira4](https://github.com/laviniaoliveira4) | Product Owner / Desenvolvedora |
+| Isabella Castro Garcia | [@IsaGarcia02](https://github.com/IsaGarcia02) | Desenvolvedora / Testes |
+| Frederico Carvalho Truocchio | [@fredericotru](https://github.com/fredericotru) | Desenvolvedor / Documentação |
 
 ## Gestão do projeto
 
