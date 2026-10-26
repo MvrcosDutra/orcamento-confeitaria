@@ -103,4 +103,30 @@ class ProdutoServiceTest {
     void deveRetornarListaVaziaSemProdutos() {
         assertTrue(service.listar().isEmpty());
     }
+    @Test
+void deveBuscarProdutoPorId() {
+    Produto salvo = service.cadastrar(
+            "Coxinha",
+            Categoria.SALGADO,
+            new BigDecimal("5")
+    );
+
+    assertEquals(
+            "Coxinha",
+            service.buscarPorId(salvo.getId()).getNome()
+    );
+}
+
+@Test
+void deveRejeitarBuscaPorIdInexistente() {
+    IllegalArgumentException erro = assertThrows(
+            IllegalArgumentException.class,
+            () -> service.buscarPorId(99L)
+    );
+
+    assertEquals(
+            "Produto não encontrado",
+            erro.getMessage()
+    );
+}
 }
