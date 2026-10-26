@@ -29,4 +29,10 @@ public class ProdutoRepositoryEmMemoria implements ProdutoRepository {
                 .filter(p -> p.getNome().equalsIgnoreCase(nome))
                 .findFirst();
     }
+    @Override
+    public Optional<Produto> buscarPorId(Long id) {
+    return produtos.stream()
+            .filter(p -> p.getId().equals(id))
+            .findFirst();
+}
 }

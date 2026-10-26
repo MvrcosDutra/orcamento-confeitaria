@@ -12,4 +12,6 @@ public interface ProdutoRepository {
     List<Produto> listarTodos();
 
     Optional<Produto> buscarPorNome(String nome);
+    
+    Optional<Produto> buscarPorId(Long id);
 }
