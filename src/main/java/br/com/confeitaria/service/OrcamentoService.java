@@ -74,13 +74,17 @@ public Orcamento criar(Cliente cliente, List<ItemOrcamento> itens,
 }
 
 
-    /** US05 — todos os orçamentos, da data de entrega mais próxima para a mais distante. */
-    public List<Orcamento> listar() {
-        throw new UnsupportedOperationException("US05 — em desenvolvimento");
-    }
+/** US05 — todos os orçamentos, da data de entrega mais próxima para a mais distante. */
+public List<Orcamento> listar() {
+    return repository.listarTodos().stream()
+            .sorted(Comparator.comparing(Orcamento::getDataEntrega))
+            .toList();
+}
 
-    /** US05 — somente os orçamentos com o status informado. */
-    public List<Orcamento> listarPorStatus(StatusOrcamento status) {
-        throw new UnsupportedOperationException("US05 — em desenvolvimento");
-    }
+/** US05 — somente os orçamentos com o status informado. */
+public List<Orcamento> listarPorStatus(StatusOrcamento status) {
+    return listar().stream()
+            .filter(o -> o.getStatus() == status)
+            .toList();
+}
 }
