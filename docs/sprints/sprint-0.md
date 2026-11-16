@@ -27,11 +27,13 @@ Um item só vai para **Concluído** quando:
 
 ## Revisão da sprint
 
-- **Entregue:** _preencher ao final_
-- **Não entregue / motivo:** _preencher ao final_
+- **Entregue:** visão do produto, requisitos e regras de negócio, backlog com 11 histórias no quadro,
+  arquitetura em 4 camadas com Maven e as histórias US01 e US02 com 11 testes unitários e 2 cenários BDD.
+- **Não entregue / motivo:** nada ficou pendente.
 
 ## Retrospectiva
 
-- **O que funcionou:** _preencher_
-- **O que melhorar:** _preencher_
-- **Ação para a Sprint 1:** _preencher_
+- **O que funcionou:** definir as regras de negócio com valores concretos logo no início facilitou
+  escrever os testes.
+- **O que melhorar:** os commits ficaram concentrados em uma pessoa e não houve pull requests.
+- **Ação para a Sprint 1:** cada integrante entrega sua história em uma branch própria, por pull request.
