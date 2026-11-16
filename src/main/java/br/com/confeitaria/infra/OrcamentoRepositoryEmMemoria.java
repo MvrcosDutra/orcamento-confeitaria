@@ -4,6 +4,7 @@ import br.com.confeitaria.domain.Orcamento;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class OrcamentoRepositoryEmMemoria implements OrcamentoRepository {
 
@@ -20,6 +21,12 @@ public class OrcamentoRepositoryEmMemoria implements OrcamentoRepository {
     @Override
     public List<Orcamento> listarTodos() {
         return new ArrayList<>(orcamentos);
-        
+    }
+
+    @Override
+    public Optional<Orcamento> buscarPorId(Long id) {
+        return orcamentos.stream()
+                .filter(o -> o.getId().equals(id))
+                .findFirst();
     }
 }

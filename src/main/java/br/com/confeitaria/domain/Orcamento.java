@@ -56,6 +56,27 @@ public class Orcamento {
                 .add(this.taxaEntrega);
     }
 
+
+    /** US08 — muda o status. Só orçamentos PENDENTE podem mudar (RN04). */
+    public void alterarStatus(StatusOrcamento novoStatus) {
+        if (status != StatusOrcamento.PENDENTE) {
+            throw new IllegalArgumentException(
+                    "Somente orçamentos pendentes podem mudar de status (este está " + status + ")");
+        }
+
+        if (novoStatus == null || novoStatus == StatusOrcamento.PENDENTE) {
+            throw new IllegalArgumentException("Novo status inválido");
+        }
+
+        this.status = novoStatus;
+    }
+
+    /** RN05 — um orçamento PENDENTE criado há mais de 7 dias está vencido. */
+    public boolean estaVencido(LocalDate hoje) {
+        return status == StatusOrcamento.PENDENTE
+                && dataCriacao.plusDays(7).isBefore(hoje);
+    }
+
     public Long getId() {
         return id;
     }
