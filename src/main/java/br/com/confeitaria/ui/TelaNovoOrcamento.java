@@ -19,6 +19,9 @@ import java.util.Scanner;
 
 public class TelaNovoOrcamento {
 
+    private static final DateTimeFormatter FORMATO_DATA =
+            DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
     private final ProdutoService produtoService;
     private final OrcamentoService orcamentoService;
     private final Scanner entrada;
@@ -47,8 +50,8 @@ public class TelaNovoOrcamento {
             saida.println("\nProdutos disponíveis:");
 
             for (Produto produto : produtos) {
-                saida.printf("%d - %s - R$ %s%n",
-                        produto.getId(), produto.getNome(), produto.getPreco());
+                saida.printf("%d - %s - %s%n",
+                        produto.getId(), produto.getNome(), moeda(produto.getPreco()));
             }
 
             saida.print("\nNome do cliente: ");
@@ -138,16 +141,22 @@ public class TelaNovoOrcamento {
             saida.println("Código: " + orcamento.getId());
             saida.println("Status: " + orcamento.getStatus());
             saida.println("Cliente: " + orcamento.getCliente().getNome());
-            saida.println("Data de entrega: " + orcamento.getDataEntrega());
+            saida.println("Data de entrega: "
+                    + orcamento.getDataEntrega().format(FORMATO_DATA));
             saida.println("Recebimento: "
                     + (orcamento.isRetirada() ? "Retirada" : "Entrega"));
-            saida.println("Subtotal: R$ " + orcamento.getSubtotal());
-            saida.println("Desconto: R$ " + orcamento.getDesconto());
-            saida.println("Taxa de entrega: R$ " + orcamento.getTaxaEntrega());
-            saida.println("Total: R$ " + orcamento.getTotal());
+            saida.println("Subtotal: " + moeda(orcamento.getSubtotal()));
+            saida.println("Desconto: " + moeda(orcamento.getDesconto()));
+            saida.println("Taxa de entrega: " + moeda(orcamento.getTaxaEntrega()));
+            saida.println("Total: " + moeda(orcamento.getTotal()));
 
         } catch (IllegalArgumentException e) {
             saida.println("\nNão foi possível criar o orçamento: " + e.getMessage());
         }
+    }
+
+    /** Formata um valor como "R$ 1.234,50". */
+    private String moeda(BigDecimal valor) {
+        return "R$ " + valor.toString().replace(".", ",");
     }
 }
