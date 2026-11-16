@@ -17,6 +17,10 @@ public class MenuConsole {
     private final PrintStream saida;
     private final TelaNovoOrcamento telaNovoOrcamento;
     private final TelaListaOrcamentos telaListaOrcamentos;
+    private final TelaStatusOrcamento telaStatusOrcamento;
+    private final TelaEditarProduto telaEditarProduto;
+    private final TelaExcluirProduto telaExcluirProduto;
+    private final TelaBuscarProduto telaBuscarProduto;
 
     public MenuConsole(ProdutoService produtoService,
                        OrcamentoService orcamentoService,
@@ -29,6 +33,14 @@ public class MenuConsole {
                 produtoService, orcamentoService, entrada, saida);
         this.telaListaOrcamentos = new TelaListaOrcamentos(
                 orcamentoService, entrada, saida);
+        this.telaStatusOrcamento = new TelaStatusOrcamento(
+                orcamentoService, entrada, saida);
+        this.telaEditarProduto = new TelaEditarProduto(
+                produtoService, entrada, saida);
+        this.telaExcluirProduto = new TelaExcluirProduto(
+                produtoService, entrada, saida);
+        this.telaBuscarProduto = new TelaBuscarProduto(
+                produtoService, entrada, saida);
     }
 
     public void iniciar() {
@@ -40,6 +52,10 @@ public class MenuConsole {
             saida.println("2 - Listar produtos");
             saida.println("3 - Novo orçamento");
             saida.println("4 - Listar orçamentos");
+            saida.println("5 - Aprovar ou recusar orçamento");
+            saida.println("6 - Editar produto");
+            saida.println("7 - Excluir produto");
+            saida.println("8 - Buscar produto");
             saida.println("0 - Sair");
             saida.print("Escolha uma opção: ");
 
@@ -52,12 +68,16 @@ public class MenuConsole {
                 case "2" -> listarProdutos();
                 case "3" -> telaNovoOrcamento.executar();
                 case "4" -> telaListaOrcamentos.executar();
+                case "5" -> telaStatusOrcamento.executar();
+                case "6" -> telaEditarProduto.executar();
+                case "7" -> telaExcluirProduto.executar();
+                case "8" -> telaBuscarProduto.executar();
                 case "0" -> {
                     saida.println("Até logo!");
                     return;
                 }
                 default -> saida.println(
-                        "Opção inválida. Digite um número de 0 a 4.");
+                        "Opção inválida. Digite um número de 0 a 8.");
             }
         }
     }
