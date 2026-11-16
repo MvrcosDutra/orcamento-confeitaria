@@ -20,13 +20,13 @@ preços e regras em um só lugar e produz orçamentos rápidos, padronizados e r
 |---|---|---|
 | Cadastrar produto | 0 | ✅ Concluída |
 | Listar produtos | 0 | ✅ Concluída |
-| Criar orçamento com itens | 1 | Planejada |
-| Calcular valor do orçamento (regras de negócio) | 1 | Planejada |
-| Listar orçamentos | 1 | Planejada |
-| Editar / excluir produto | 2 | Planejada |
-| Atualizar status do orçamento | 2 | Planejada |
-| Buscar produto por nome/categoria | 2 | Planejada |
-| Autenticar atendente | 2 | Planejada |
+| Criar orçamento com itens | 1 | ✅ Concluída |
+| Calcular valor do orçamento (regras de negócio) | 1 | ✅ Concluída |
+| Listar orçamentos | 1 | ✅ Concluída |
+| Editar / excluir produto | 2 | Em andamento |
+| Aprovar / recusar orçamento e expiração automática | 2 | Em andamento |
+| Autenticar atendente | 2 | Em andamento |
+| Buscar produto por nome/categoria | 2 | Em andamento |
 
 Detalhes em [docs/requisitos/requisitos.md](docs/requisitos/requisitos.md) e
 [docs/backlog/backlog.md](docs/backlog/backlog.md).
@@ -48,6 +48,8 @@ Pré-requisitos: JDK 17+ e Maven 3.8+ instalados.
 mvn compile exec:java
 ```
 
+Ao abrir, o sistema pede login. Usuário de demonstração: **admin** / senha **confeitaria123**.
+
 ## Como rodar os testes
 
 ```bash
@@ -60,10 +62,10 @@ O relatório de cobertura é gerado em `target/site/jacoco/index.html`.
 
 ```
 src/main/java/br/com/confeitaria/
-├── domain/    # entidades e regras do domínio (Produto, Categoria)
-├── service/   # casos de uso e validações (ProdutoService)
-├── infra/     # persistência (repositórios)
-├── ui/        # interface com o usuário (menu de console)
+├── domain/    # entidades (Produto, Categoria, Orcamento, ItemOrcamento, Cliente, StatusOrcamento)
+├── service/   # casos de uso e regras de negócio (ProdutoService, OrcamentoService, CalculadoraOrcamento)
+├── infra/     # persistência em memória (repositórios)
+├── ui/        # interface de console (MenuConsole e uma tela por funcionalidade)
 └── App.java   # ponto de entrada
 src/test/java/             # testes unitários e steps do Cucumber
 src/test/resources/features/  # cenários BDD (Gherkin)
