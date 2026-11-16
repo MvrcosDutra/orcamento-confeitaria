@@ -1,3 +1,4 @@
+
 package br.com.confeitaria.infra;
 
 import br.com.confeitaria.domain.Produto;
@@ -29,10 +30,17 @@ public class ProdutoRepositoryEmMemoria implements ProdutoRepository {
                 .filter(p -> p.getNome().equalsIgnoreCase(nome))
                 .findFirst();
     }
+
     @Override
     public Optional<Produto> buscarPorId(Long id) {
-    return produtos.stream()
-            .filter(p -> p.getId().equals(id))
-            .findFirst();
-}
+        return produtos.stream()
+                .filter(p -> p.getId().equals(id))
+                .findFirst();
+    }
+
+    // US07 - Excluir produto pelo código
+    @Override
+    public void remover(Long id) {
+        produtos.removeIf(p -> p.getId().equals(id));
+    }
 }

@@ -1,3 +1,4 @@
+
 package br.com.confeitaria.domain;
 
 import java.math.BigDecimal;
@@ -6,11 +7,18 @@ import java.math.RoundingMode;
 public class Produto {
 
     private Long id;
-    private final String nome;
-    private final Categoria categoria;
-    private final BigDecimal preco;
+    private String nome;
+    private Categoria categoria;
+    private BigDecimal preco;
 
     public Produto(String nome, Categoria categoria, BigDecimal preco) {
+        this.nome = nome;
+        this.categoria = categoria;
+        this.preco = preco.setScale(2, RoundingMode.HALF_UP);
+    }
+
+    /** US06 — altera os dados do produto. As validações ficam no ProdutoService. */
+    public void atualizar(String nome, Categoria categoria, BigDecimal preco) {
         this.nome = nome;
         this.categoria = categoria;
         this.preco = preco.setScale(2, RoundingMode.HALF_UP);

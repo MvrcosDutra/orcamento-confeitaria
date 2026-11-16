@@ -1,3 +1,4 @@
+
 package br.com.confeitaria.infra;
 
 import br.com.confeitaria.domain.Produto;
@@ -12,6 +13,8 @@ public interface ProdutoRepository {
     List<Produto> listarTodos();
 
     Optional<Produto> buscarPorNome(String nome);
-    
+
     Optional<Produto> buscarPorId(Long id);
+
+    void remover(Long id);
 }

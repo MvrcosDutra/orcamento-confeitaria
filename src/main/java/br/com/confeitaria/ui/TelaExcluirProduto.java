@@ -1,11 +1,12 @@
+
 package br.com.confeitaria.ui;
 
+import br.com.confeitaria.domain.Produto;
 import br.com.confeitaria.service.ProdutoService;
 
 import java.io.PrintStream;
 import java.util.Scanner;
 
-/** US07 — tela "Excluir produto". */
 public class TelaExcluirProduto {
 
     private final ProdutoService produtoService;
@@ -19,6 +20,27 @@ public class TelaExcluirProduto {
     }
 
     public void executar() {
-        saida.println("Em construção (US07).");
+        saida.print("Código do produto: ");
+        Produto produto;
+
+        try {
+            produto = produtoService.buscarPorId(Long.parseLong(entrada.nextLine().trim()));
+        } catch (NumberFormatException e) {
+            saida.println("Código inválido. Digite apenas números.");
+            return;
+        } catch (IllegalArgumentException e) {
+            saida.println("Erro: " + e.getMessage());
+            return;
+        }
+
+        saida.print("Confirma a exclusão de \"" + produto.getNome() + "\"? (S/N): ");
+
+        if (!entrada.nextLine().trim().equalsIgnoreCase("S")) {
+            saida.println("Exclusão cancelada.");
+            return;
+        }
+
+        produtoService.excluir(produto.getId());
+        saida.println("Produto excluído.");
     }
 }
