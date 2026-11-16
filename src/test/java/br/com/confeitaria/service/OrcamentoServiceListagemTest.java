@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.Clock;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,10 +27,17 @@ class OrcamentoServiceListagemTest {
     void setUp() {
         repository = new OrcamentoRepositoryEmMemoria();
 
+        ZoneId zona = ZoneId.systemDefault();
+
+        Clock relogioFixo = Clock.fixed(
+                HOJE.atStartOfDay(zona).toInstant(),
+                zona
+        );
+
         service = new OrcamentoService(
                 repository,
                 new CalculadoraOrcamento(),
-                Clock.systemDefaultZone()
+                relogioFixo
         );
     }
 

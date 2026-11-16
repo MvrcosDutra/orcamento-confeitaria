@@ -1,3 +1,4 @@
+
 package br.com.confeitaria.service;
 
 import br.com.confeitaria.domain.Cliente;
@@ -26,65 +27,100 @@ public class OrcamentoService {
         this.relogio = relogio;
     }
 
-   
-/** US03 — valida os dados, calcula os valores (RN01–RN03) e salva o orçamento como PENDENTE. */
-public Orcamento criar(Cliente cliente, List<ItemOrcamento> itens,
-                       LocalDate dataEntrega, BigDecimal distanciaKm) {
+    /** US03 — valida os dados, calcula os valores e salva o orçamento. */
+    public Orcamento criar(Cliente cliente, List<ItemOrcamento> itens,
+                           LocalDate dataEntrega, BigDecimal distanciaKm) {
 
-    if (cliente == null || cliente.getNome() == null
-            || cliente.getNome().isBlank()) {
-        throw new IllegalArgumentException("Nome do cliente é obrigatório");
-    }
-
-    if (cliente.getTelefone() == null || cliente.getTelefone().isBlank()) {
-        throw new IllegalArgumentException("Telefone do cliente é obrigatório");
-    }
-
-    if (itens == null || itens.isEmpty()) {
-        throw new IllegalArgumentException(
-                "O orçamento precisa de pelo menos um item");
-    }
-
-    for (ItemOrcamento item : itens) {
-        if (item == null || item.getQuantidade() <= 0) {
-            throw new IllegalArgumentException(
-                    "Quantidade deve ser maior que zero");
+        if (cliente == null || cliente.getNome() == null
+                || cliente.getNome().isBlank()) {
+            throw new IllegalArgumentException("Nome do cliente é obrigatório");
         }
+
+        if (cliente.getTelefone() == null || cliente.getTelefone().isBlank()) {
+            throw new IllegalArgumentException("Telefone do cliente é obrigatório");
+        }
+
+        if (itens == null || itens.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "O orçamento precisa de pelo menos um item");
+        }
+
+        for (ItemOrcamento item : itens) {
+            if (item == null || item.getQuantidade() <= 0) {
+                throw new IllegalArgumentException(
+                        "Quantidade deve ser maior que zero");
+            }
+        }
+
+        if (dataEntrega == null) {
+            throw new IllegalArgumentException("Data de entrega é obrigatória");
+        }
+
+        LocalDate hoje = LocalDate.now(relogio);
+
+        Orcamento orcamento = new Orcamento(
+                cliente, itens, hoje, dataEntrega, distanciaKm);
+
+        calculadora.validarAntecedencia(
+                hoje, dataEntrega, orcamento.temBoloPersonalizado());
+
+        BigDecimal subtotal = calculadora.calcularSubtotal(itens);
+        BigDecimal desconto = calculadora.calcularDesconto(subtotal);
+        BigDecimal taxaEntrega = calculadora.calcularTaxaEntrega(distanciaKm);
+
+        orcamento.aplicarValores(subtotal, desconto, taxaEntrega);
+
+        return repository.salvar(orcamento);
     }
 
-    if (dataEntrega == null) {
-        throw new IllegalArgumentException("Data de entrega é obrigatória");
+    /** US05 — lista todos os orçamentos. */
+    public List<Orcamento> listar() {
+        atualizarExpirados();
+        return repository.listarTodos().stream()
+                .sorted(Comparator.comparing(Orcamento::getDataEntrega))
+                .toList();
     }
 
-    LocalDate hoje = LocalDate.now(relogio);
+    /** US05 — lista os orçamentos pelo status informado. */
+    public List<Orcamento> listarPorStatus(StatusOrcamento status) {
+        return listar().stream()
+                .filter(o -> o.getStatus() == status)
+                .toList();
+    }
 
-    Orcamento orcamento = new Orcamento(
-            cliente, itens, hoje, dataEntrega, distanciaKm);
+    /** US08 — aprova um orçamento pendente (RN04). */
+    public Orcamento aprovar(Long id) {
+        return mudarStatus(id, StatusOrcamento.APROVADO);
+    }
 
-    calculadora.validarAntecedencia(
-            hoje, dataEntrega, orcamento.temBoloPersonalizado());
+    /** US08 — recusa um orçamento pendente (RN04). */
+    public Orcamento recusar(Long id) {
+        return mudarStatus(id, StatusOrcamento.RECUSADO);
+    }
 
-    BigDecimal subtotal = calculadora.calcularSubtotal(itens);
-    BigDecimal desconto = calculadora.calcularDesconto(subtotal);
-    BigDecimal taxaEntrega = calculadora.calcularTaxaEntrega(distanciaKm);
+    /** RN05 — expira orçamentos pendentes há mais de 7 dias. */
+    public int atualizarExpirados() {
+        LocalDate hoje = LocalDate.now(relogio);
+        int expirados = 0;
 
-    orcamento.aplicarValores(subtotal, desconto, taxaEntrega);
+        for (Orcamento orcamento : repository.listarTodos()) {
+            if (orcamento.estaVencido(hoje)) {
+                orcamento.alterarStatus(StatusOrcamento.EXPIRADO);
+                expirados++;
+            }
+        }
 
-    return repository.salvar(orcamento);
-}
+        return expirados;
+    }
 
+    private Orcamento mudarStatus(Long id, StatusOrcamento novoStatus) {
+        atualizarExpirados();
 
-/** US05 — todos os orçamentos, da data de entrega mais próxima para a mais distante. */
-public List<Orcamento> listar() {
-    return repository.listarTodos().stream()
-            .sorted(Comparator.comparing(Orcamento::getDataEntrega))
-            .toList();
-}
+        Orcamento orcamento = repository.buscarPorId(id)
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Orçamento não encontrado"));
 
-/** US05 — somente os orçamentos com o status informado. */
-public List<Orcamento> listarPorStatus(StatusOrcamento status) {
-    return listar().stream()
-            .filter(o -> o.getStatus() == status)
-            .toList();
-}
+        orcamento.alterarStatus(novoStatus);
+        return orcamento;
+    }
 }
